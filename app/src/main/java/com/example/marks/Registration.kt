@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import com.example.marks.databinding.FragmentRegistrationBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +36,23 @@ class Registration : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentRegistrationBinding.inflate(inflater,container,false)
+        val subjects = mutableListOf("Algebra","Informatics","Ona Tili","Ingiliz tili")
+        val clas = mutableListOf<String>("5-01","5-02","5-03","5-04","6-01","6-02")
+        binding.spinner.setOnItemClickListener { parent, view, position, id ->
+            if (position == 2){
+                val a1 = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,subjects)
+                binding.subject.visibility = View.VISIBLE
+                binding.subject.adapter = a1
+                binding.selectmajr.visibility = View.VISIBLE
+            }
+            if (position == 3){
+                binding.selectmajr.text = "Select Class"
+                binding.subject.visibility = View.VISIBLE
+                val a1 = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,clas)
+                binding.subject.adapter = a1
+                binding.selectmajr.visibility = View.VISIBLE
+            }
+        }
         return binding.root
     }
 
