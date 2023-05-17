@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import com.example.marks.Data.AppData
-import com.example.marks.databinding.FragmentMainBinding
+import com.example.marks.databinding.FragmentStudentWindowBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,16 +16,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MainFragment.newInstance] factory method to
+ * Use the [StudentWindow.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainFragment : Fragment() {
+class StudentWindow : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    val appData:AppData by lazy {
-        AppData.getInstance(requireContext())
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,14 +36,10 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMainBinding.inflate(inflater,container,false)
-        val list = appData.runStudents().getStudents()
-        val list2 = mutableListOf<String>()
-        for (i in list){
-            list2.add("${i.clas} -> ${i.name}")
-        }
-        val adapter = ArrayAdapter(requireContext(), R.layout.simple_list_item_1,list2)
-        binding.students.adapter = adapter
+        val binding = FragmentStudentWindowBinding.inflate(inflater,container,false)
+        val subjects = mutableListOf("Algebra","Informatics","Ona Tili","Ingiliz tili")
+        val adapter = ArrayAdapter(requireContext(), R.layout.simple_list_item_1,subjects)
+        binding.subjects.adapter = adapter
 
         return binding.root
     }
@@ -59,12 +51,12 @@ class MainFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MainFragment.
+         * @return A new instance of fragment StudentWindow.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MainFragment().apply {
+            StudentWindow().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

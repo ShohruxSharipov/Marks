@@ -9,5 +9,5 @@ class Students (
     var id:Int = 0,
     var name:String,
     var login:String,
-    var pasword:String,
+    var password:String,
     var clas:String)

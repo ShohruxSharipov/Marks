@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.marks.Data.AppData
 import com.example.marks.databinding.FragmentLoginBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,6 +23,9 @@ class Login : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    val appData:AppData by lazy {
+        AppData.getInstance(requireContext())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,23 @@ class Login : Fragment() {
 
         binding.register.setOnClickListener{
             parentFragmentManager.beginTransaction().replace(R.id.main,Registration()).commit()
+        }
+
+        binding.next.setOnClickListener {
+            val login = binding.userLogin.text.toString()
+            val password = binding.userPassword.text.toString()
+            val user = appData.runStudents().findStudent(login,password)
+            var user2 = appData.runTeachers().findTeacher(login,password)
+
+            if (user != null){
+                parentFragmentManager.beginTransaction().replace(R.id.main,StudentWindow()).commit()
+            }
+            else if(user2 != null){
+                parentFragmentManager.beginTransaction().replace(R.id.main,MainFragment()).commit()
+            }
+            else {
+                Toast.makeText(requireContext(), "Try Again", Toast.LENGTH_SHORT).show()
+            }
         }
         return binding.root
     }
