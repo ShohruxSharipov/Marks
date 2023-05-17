@@ -1,10 +1,14 @@
 package com.example.marks
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import com.example.marks.databinding.FragmentRegistrationBinding
 
@@ -37,7 +41,37 @@ class Registration : Fragment() {
     ): View? {
         val binding = FragmentRegistrationBinding.inflate(inflater,container,false)
         val subjects = mutableListOf("Algebra","Informatics","Ona Tili","Ingiliz tili")
+        val role = mutableListOf("select role","Teacher","Student")
         val clas = mutableListOf<String>("5-01","5-02","5-03","5-04","6-01","6-02")
+        binding.spinner.onItemSelectedListener = object : OnItemSelectedListener{
+            @SuppressLint("SetTextI18n")
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if (p2 == 0){
+                    val a1 = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,subjects)
+                    binding.subject.visibility = View.INVISIBLE
+                    binding.selectmajr.visibility = View.INVISIBLE
+                }
+                if (p2 == 1){
+                    val a1 = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,subjects)
+                    binding.subject.visibility = View.VISIBLE
+                    binding.subject.adapter = a1
+                    binding.selectmajr.text = "Select Subject"
+                    binding.selectmajr.visibility = View.VISIBLE
+                }
+                if (p2 == 2){
+                    binding.selectmajr.text = "Select Class"
+                    binding.subject.visibility = View.VISIBLE
+                    val a1 = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,clas)
+                    binding.subject.adapter = a1
+                    binding.selectmajr.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
         binding.spinner.setOnItemClickListener { parent, view, position, id ->
             if (position == 2){
                 val a1 = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,subjects)

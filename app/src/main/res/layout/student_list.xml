@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp"
+    android:layout_marginHorizontal="5dp"
+    android:id="@+id/item">
+
+    <TextView
+        android:id="@+id/nameandclass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="25sp"
+        tools:layout_editor_absoluteX="45dp"
+        tools:layout_editor_absoluteY="27dp" />
+</androidx.appcompat.widget.LinearLayoutCompat>
