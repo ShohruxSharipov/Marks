@@ -5,9 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.example.marks.Data.AppData
-import com.example.marks.databinding.FragmentLoginBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,16 +13,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [Login.newInstance] factory method to
+ * Use the [StudentInfo.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Login : Fragment() {
+class StudentInfo : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    val appData:AppData by lazy {
-        AppData.getInstance(requireContext())
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,29 +33,8 @@ class Login : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentLoginBinding.inflate(inflater,container,false)
-
-        binding.register.setOnClickListener{
-            parentFragmentManager.beginTransaction().replace(R.id.main,Registration()).commit()
-        }
-
-        binding.next.setOnClickListener {
-            val login = binding.userLogin.text.toString()
-            val password = binding.userPassword.text.toString()
-            val user = appData.runStudents().findStudent(login,password)
-            var user2 = appData.runTeachers().findTeacher(login,password)
-
-            if (user != null){
-                parentFragmentManager.beginTransaction().replace(R.id.main,StudentWindow()).addToBackStack("log").commit()
-            }
-            else if(user2 != null){
-                parentFragmentManager.beginTransaction().replace(R.id.main,MainFragment()).addToBackStack("log").commit()
-            }
-            else {
-                Toast.makeText(requireContext(), "Try Again", Toast.LENGTH_SHORT).show()
-            }
-        }
-        return binding.root
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_student_info, container, false)
     }
 
     companion object {
@@ -71,12 +44,12 @@ class Login : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment Login.
+         * @return A new instance of fragment StudentInfo.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            Login().apply {
+            StudentInfo().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

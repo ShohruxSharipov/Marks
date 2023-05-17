@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import com.example.marks.Data.AppData
+import com.example.marks.Data.Entity.Students
+import com.example.marks.Data.Entity.Teachers
 import com.example.marks.databinding.FragmentRegistrationBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +30,9 @@ class Registration : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    val appData : AppData by lazy {
+        AppData.getInstance(requireContext())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +47,7 @@ class Registration : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentRegistrationBinding.inflate(inflater,container,false)
+        var bol = false
         val subjects = mutableListOf("Algebra","Informatics","Ona Tili","Ingiliz tili")
         val role = mutableListOf("select role","Teacher","Student")
         val clas = mutableListOf<String>("5-01","5-02","5-03","5-04","6-01","6-02")
@@ -58,6 +66,7 @@ class Registration : Fragment() {
                     binding.subject.adapter = a1
                     binding.selectmajr.text = "Select Subject"
                     binding.selectmajr.visibility = View.VISIBLE
+                    bol = true
                 }
                 if (p2 == 2){
                     binding.selectmajr.text = "Select Class"
@@ -65,11 +74,29 @@ class Registration : Fragment() {
                     val a1 = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,clas)
                     binding.subject.adapter = a1
                     binding.selectmajr.visibility = View.VISIBLE
+                    bol = true
                 }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
+            }
+
+        }
+
+        binding.next2.setOnClickListener {
+
+            if (binding.userName.text.isNullOrBlank() || binding.userLog.text.isNullOrBlank() || binding.userPass.text.isNullOrBlank() || bol == false)
+                Toast.makeText(requireContext(), "Complate all !!", Toast.LENGTH_SHORT).show()
+            else if (binding.spinner.selectedItemPosition == 1){
+                var subject = binding.subject.selectedItem.toString()
+                appData.runTeachers().addTeacher(Teachers(name = binding.userName.text.toString(), login = binding.userLog.text.toString(), password = binding.userPass.text.toString(), subject = subject))
+                parentFragmentManager.beginTransaction().replace(R.id.main, MainFragment()).commit()
+            }
+            else {
+                var subject = binding.subject.selectedItem.toString()
+                appData.runStudents().addStudent(Students(name = binding.userName.text.toString(), login = binding.userLog.text.toString(), password = binding.userPass.text.toString(), clas = subject))
+                parentFragmentManager.beginTransaction().replace(R.id.main, StudentWindow()).commit()
             }
 
         }
