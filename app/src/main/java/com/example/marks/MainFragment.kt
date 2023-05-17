@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.example.marks.Data.AppData
+import com.example.marks.adapter.Adapter
 import com.example.marks.databinding.FragmentMainBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,7 +47,11 @@ class MainFragment : Fragment() {
         for (i in list){
             list2.add("${i.clas} -> ${i.name}")
         }
-        val adapter = ArrayAdapter(requireContext(), R.layout.simple_list_item_1,list2)
+        val adapter = Adapter(list,object : Adapter.OnClickItem{
+            override fun onClickitem() {
+
+            }
+        })
         binding.students.adapter = adapter
 
         return binding.root

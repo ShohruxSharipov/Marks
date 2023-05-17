@@ -43,6 +43,7 @@ class Registration : Fragment() {
         val subjects = mutableListOf("Algebra","Informatics","Ona Tili","Ingiliz tili")
         val role = mutableListOf("select role","Teacher","Student")
         val clas = mutableListOf<String>("5-01","5-02","5-03","5-04","6-01","6-02")
+        binding.spinner.adapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1,role)
         binding.spinner.onItemSelectedListener = object : OnItemSelectedListener{
             @SuppressLint("SetTextI18n")
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -72,21 +73,7 @@ class Registration : Fragment() {
             }
 
         }
-        binding.spinner.setOnItemClickListener { parent, view, position, id ->
-            if (position == 2){
-                val a1 = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,subjects)
-                binding.subject.visibility = View.VISIBLE
-                binding.subject.adapter = a1
-                binding.selectmajr.visibility = View.VISIBLE
-            }
-            if (position == 3){
-                binding.selectmajr.text = "Select Class"
-                binding.subject.visibility = View.VISIBLE
-                val a1 = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,clas)
-                binding.subject.adapter = a1
-                binding.selectmajr.visibility = View.VISIBLE
-            }
-        }
+
         return binding.root
     }
 

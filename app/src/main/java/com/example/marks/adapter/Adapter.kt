@@ -1,5 +1,6 @@
 package com.example.marks.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ class Adapter(val list: List<Students>,val itemClick:OnClickItem):RecyclerView.A
         return list.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: My_Holder, position: Int) {
         holder.text.text = "${list[position].clas} -> ${list[position].name}"
         holder.item.setOnClickListener{itemClick.onClickitem()}
