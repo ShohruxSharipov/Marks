@@ -10,4 +10,5 @@ class Students (
     var name:String,
     var login:String,
     var password:String,
-    var clas:String)
+    var clas:String,
+    var marks:List<String>)

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.example.marks.Data.AppData
 import com.example.marks.databinding.FragmentClassListBinding
@@ -39,8 +40,16 @@ class ClassList : Fragment() {
     : View? {
         val binding = FragmentClassListBinding.inflate(inflater,container,false)
         val list = appDatabase.runStudents().getStudentsByClass(param1.toString())
-        val adapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1,list)
+        var nameList = mutableListOf<String>()
+        for (i in list){
+            nameList.add(i.name)
+        }
+        val adapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1,nameList)
         binding.studentslist.adapter = adapter
+
+        binding.studentslist.setOnItemClickListener(AdapterView.OnItemClickListener(){ adapterView, view, i, l ->
+            parentFragmentManager.beginTransaction().replace(com.example.marks.R.id.main,StudentInfo.newInstance(list[i].id,"")).addToBackStack("class").commit()
+        })
 
 
         return binding.root

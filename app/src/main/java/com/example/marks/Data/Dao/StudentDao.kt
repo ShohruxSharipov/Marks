@@ -12,10 +12,13 @@ interface StudentDao {
     @Query("select * from Students")
     fun getStudents():List<Students>
 
+    @Query("select * from Students where id = :id")
+    fun getStudentsById(id:Int):Students
+
     @Insert
     fun addStudent(students: Students)
 
-    @Query("select * from Students where clas = :clas")
+    @Query("select name from Students where clas = :clas")
     fun getStudentsByClass(clas:String):List<Students>
 
     @Query("select * from Students where login = :login and password = :password")
