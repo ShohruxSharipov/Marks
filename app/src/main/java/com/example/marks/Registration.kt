@@ -95,7 +95,7 @@ class Registration : Fragment() {
             }
             else {
                 var subject = binding.subject.selectedItem.toString()
-                appData.runStudents().addStudent(Students(name = binding.userName.text.toString(), login = binding.userLog.text.toString(), password = binding.userPass.text.toString(), clas = subject))
+                appData.runStudents().addStudent(Students(name = binding.userName.text.toString(), login = binding.userLog.text.toString(), password = binding.userPass.text.toString(), clas = subject, Student_marks = ""))
                 parentFragmentManager.beginTransaction().replace(R.id.main, StudentWindow()).commit()
             }
 

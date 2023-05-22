@@ -18,10 +18,13 @@ interface StudentDao {
     @Insert
     fun addStudent(students: Students)
 
-    @Query("select name from Students where clas = :clas")
+    @Query("select * from Students where clas = :clas")
     fun getStudentsByClass(clas:String):List<Students>
 
     @Query("select * from Students where login = :login and password = :password")
     fun findStudent(login:String,password:String):Students
+
+    @Query("update Students set Student_marks = :baho where id = :id")
+    fun addMark(baho:String,id: Int)
 
 }

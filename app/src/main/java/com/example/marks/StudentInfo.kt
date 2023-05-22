@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.example.marks.Data.AppData
+import com.example.marks.Data.Entity.Students
 import com.example.marks.databinding.FragmentStudentInfoBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,12 +43,15 @@ class StudentInfo : Fragment() {
         val binding = FragmentStudentInfoBinding.inflate(inflater,container,false)
         val ABC = listOf("A","B","C")
         val student = appData.runStudents().getStudentsById(param1!!)
+        var baho = student.Student_marks
         binding.textView4.text = student.name
         binding.login.text = student.login
-        binding.marks.text = student.marks.toString()
+        binding.marks.text = baho
         binding.spinner2.adapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1,ABC)
         binding.save.setOnClickListener {
-//            student.marks.
+            baho += binding.spinner2.selectedItem.toString()
+            appData.runStudents().addMark(baho,student.id)
+            parentFragmentManager.beginTransaction().replace(R.id.main,ClassList.newInstance(student.clas,"")).commit()
         }
         return binding.root
     }
