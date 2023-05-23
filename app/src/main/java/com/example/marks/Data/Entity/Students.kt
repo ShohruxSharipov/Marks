@@ -12,3 +12,10 @@ class Students (
     var password:String,
     var clas:String,
     var Student_marks:String)
+
+// algebra
+//geometriya
+//Algebra
+//Informatics
+//Ona_Tili
+//Ingiliz_tili

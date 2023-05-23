@@ -52,7 +52,7 @@ class Login : Fragment() {
             var user2 = appData.runTeachers().findTeacher(login,password)
 
             if (user != null){
-                parentFragmentManager.beginTransaction().replace(R.id.main,StudentWindow()).addToBackStack("log").commit()
+                parentFragmentManager.beginTransaction().replace(R.id.main,StudentWindow.newInstance(login,password)).addToBackStack("log").commit()
             }
             else if(user2 != null){
                 parentFragmentManager.beginTransaction().replace(R.id.main,MainFragment()).addToBackStack("log").commit()

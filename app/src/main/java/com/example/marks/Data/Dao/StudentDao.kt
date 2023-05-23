@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.example.marks.Data.Entity.Students
 import com.example.marks.Data.Entity.Teachers
+import javax.security.auth.Subject
 
 @Dao
 interface StudentDao {
@@ -14,6 +15,11 @@ interface StudentDao {
 
     @Query("select * from Students where id = :id")
     fun getStudentsById(id:Int):Students
+
+//    @Query("select * from Students where id = :id")
+//    fun getScoresBySubject(id: Int,subject: String):String
+//
+
 
     @Insert
     fun addStudent(students: Students)
